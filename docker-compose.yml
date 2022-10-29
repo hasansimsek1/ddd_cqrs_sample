@@ -1,0 +1,20 @@
+version: '3'
+services:
+  api:
+    container_name: basketapp_api_container
+    build: .
+    ports:
+      - 9999:80
+    environment:
+      POSTGRES_MASTER_CON_STR: Server=host.docker.internal;Port=15432;Database=postgres;User Id=postgres;Password=postgres;
+      POSTGRES_APPDB_CON_STR: Server=host.docker.internal;Port=15432;Database=basket_db;User Id=postgres;Password=postgres;
+    depends_on:
+      - postgres
+  postgres:
+    container_name: basketapp_postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 15432:5432
